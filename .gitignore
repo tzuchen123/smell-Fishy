@@ -1,0 +1,21 @@
+# Node.js相關
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 環境變量文件
+.env
+
+# 日誌文件
+logs/
+*.log
+
+# 前端打包後的文件
+frontend/dist/
+
+# VSCode相關
+.vscode/
+
+# 其他
+.DS_Store
+Thumbs.db
