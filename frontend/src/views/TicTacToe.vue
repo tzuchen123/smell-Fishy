@@ -6,7 +6,6 @@
         {{ cell }}
       </div>
     </div>
-
   </div>
 </template>
 
