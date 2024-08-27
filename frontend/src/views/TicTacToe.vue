@@ -4,9 +4,6 @@
     <div class="board">
       <div v-for="(cell, index) in board" :key="index" class="cell" @click="makeMove(index)">
         {{ cell }}
-
-
-        
       </div>
     </div>
 
