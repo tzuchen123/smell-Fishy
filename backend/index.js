@@ -1,8 +1,9 @@
 const express = require('express');
 const http = require('http');
-const { Server } = require('socket.io');
 const cors = require('cors');
-require('dotenv').config(); // 使用 dotenv 來管理環境變量
+const routes = require('./src/routes'); // 引入路由
+const sockets = require('./src/sockets'); // 引入 Socket.IO 服务器
+require('dotenv').config(); 
 
 const app = express();
 const server = http.createServer(app);
@@ -13,32 +14,16 @@ const corsOptions = {
   methods: ['GET', 'POST'],
   credentials: true
 };
-
-// app.use(cors(corsOptions));
-
-const io = new Server(server, { cors: corsOptions });
+app.use(cors(corsOptions));
 
 // 中間件
 app.use(express.json());
 
 // 路由
-app.get('/', (req, res) => {
-  res.send('Socket.io Server is running');
-});
+app.use('/', routes);
 
-// Socket.IO 事件處理
-io.on('connection', (socket) => {
-  console.log('New client connected:', socket.id);
-  
-  socket.on('message', (message) => {
-    console.log('Message from client:', message);
-    io.emit('message', `Server: ${message}`);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
-  });
-});
+// 引入 Socket.IO 服务器
+sockets(server);
 
 // 錯誤處理
 app.use((err, req, res, next) => {
