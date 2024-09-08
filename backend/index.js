@@ -1,9 +1,10 @@
+const path = require('path');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const routes = require('./src/routes'); // 引入路由
 const sockets = require('./src/sockets'); // 引入 Socket.IO 服务器
-require('dotenv').config(); 
+require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
@@ -20,10 +21,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // 路由
-app.use('/', routes);
+// app.use('/', routes);
 
 // 引入 Socket.IO 服务器
 sockets(server);
+
+app.use(express.static(path.join(__dirname, 'public')));
+// 捕捉所有未匹配的路由，並返回 index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // 錯誤處理
 app.use((err, req, res, next) => {
