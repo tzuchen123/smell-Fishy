@@ -11,7 +11,7 @@ logs/
 *.log
 
 # 前端打包後的文件
-frontend/dist/
+backend/public/
 
 # VSCode相關
 .vscode/
