@@ -1,5 +1,7 @@
 const { Server } = require('socket.io');
-const chat = require('./chat');
+const roomHandlers = require('./roomHandlers');
+const messageHandlers = require('./messageHandlers');
+const TicTacToe = require('./TicTacToe');
 
 module.exports = (server) => {
     const io = new Server(server, {
@@ -14,7 +16,13 @@ module.exports = (server) => {
     io.on('connection', (socket) => {
         console.log('A user connected:', socket.id);
 
-        chat(io, socket);
+        // 註冊房間相關的處理邏輯
+        roomHandlers(io, socket);
+
+        // 註冊訊息相關的處理邏輯
+        messageHandlers(io, socket);
+
+        TicTacToe(io, socket);
 
         socket.on('disconnect', () => {
             console.log('User disconnected:', socket.id);
