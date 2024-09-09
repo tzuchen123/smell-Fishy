@@ -17,7 +17,7 @@ module.exports = (io, socket) => {
         socket.join(roomName);
         console.log(`Room ${roomName} created by ${socket.id} as Player A`);
 
-        socket.emit('message', 'Room created successfully');
+        socket.emit('message', 'Room created successfully. Please wait until someone joins.');
     });
 
 
@@ -51,7 +51,7 @@ module.exports = (io, socket) => {
         console.log(`User ${socket.id} left room: ${roomName}`);
 
         // 通知房間內的其他用戶有用戶離開
-        socket.to(roomName).emit('user-left', `User ${socket.id} left the room`);
+        socket.to(roomName).emit('userLeft', `User ${socket.id} left the room`);
     });
 };
 

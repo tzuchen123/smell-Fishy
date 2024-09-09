@@ -82,6 +82,12 @@ export default {
       this.message = message;
     });
 
+    this.$socket.on('userLeft', (message) => {
+      this.startd = false;
+      this.board = null;
+      this.message = message;
+    });
+
     this.$socket.on('roomJoined', ({ player }) => {
       this.player = player;
       this.$socket.emit('startGame', this.roomName);
@@ -91,6 +97,7 @@ export default {
       this.currentPlayer = currentPlayer;
       this.board = board;
       this.startd = true;
+      this.message = '';
     });
 
     this.$socket.on('moveMade', (game) => {
