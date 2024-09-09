@@ -4,7 +4,7 @@ import router from './router'
 import { io } from 'socket.io-client';
 
 // 連接到 Socket.IO 伺服器
-const socket = io(process.env.VUE_APP_SOCKET_URL);
+const socket = io(process.env.VUE_APP_SOCKET_URL || 'http://localhost:3000/');
 const app = createApp(App);
 app.config.globalProperties.$socket = socket;
 

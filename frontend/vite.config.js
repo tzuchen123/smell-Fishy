@@ -17,5 +17,8 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, '../backend/public'), // 設定輸出目錄
     emptyOutDir: true, // 確保每次構建時清空輸出目錄
-  }
+  },
+  define: {
+    'process.env': {}
+  },
 })
